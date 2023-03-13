@@ -6,11 +6,13 @@ import {
 } from "./update.product.dto";
 import UpdateProductUseCase from "./update.product.usecase";
 
-const product = new Product(uuid(), "ball", 10);
+const id = uuid();
 
 const MockRepository = () => {
   return {
-    find: jest.fn().mockReturnValue(Promise.resolve(product)),
+    find: jest
+      .fn()
+      .mockReturnValue(Promise.resolve(new Product(id, "ball", 10))),
     findAll: jest.fn(),
     create: jest.fn(),
     update: jest.fn(),
@@ -22,12 +24,12 @@ describe("Unit test update product use case", () => {
     const productRepository = MockRepository();
     const useCase = new UpdateProductUseCase(productRepository);
     const input: InputUpdateProductDto = {
-      id: product.id,
+      id,
       name: "ball updated",
       price: 20,
     };
     const output: OutputUpdateProductDto = {
-      id: product.id,
+      id,
       name: input.name,
       price: input.price,
     };
@@ -39,7 +41,7 @@ describe("Unit test update product use case", () => {
     const productRepository = MockRepository();
     const useCase = new UpdateProductUseCase(productRepository);
     const input: InputUpdateProductDto = {
-      id: product.id,
+      id,
       name: "",
       price: 20,
     };
@@ -52,7 +54,7 @@ describe("Unit test update product use case", () => {
     const productRepository = MockRepository();
     const useCase = new UpdateProductUseCase(productRepository);
     const input: InputUpdateProductDto = {
-      id: product.id,
+      id,
       name: "ball",
       price: -1,
     };

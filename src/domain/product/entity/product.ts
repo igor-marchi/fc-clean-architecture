@@ -35,7 +35,6 @@ export default class Product extends Entity implements ProductInterface {
   }
 
   validate(): boolean {
-    this.notification.cleanErrors();
     if (this._id.length === 0) {
       this.notification.addError({
         context: Product.CONTEXT,
